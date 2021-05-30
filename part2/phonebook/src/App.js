@@ -21,7 +21,6 @@ const App = () => {
         const newPerson = {
             name: newName,
             number: newNumber,
-            id: persons.length + 1,
         };
 
         const existingPerson = persons.find(
@@ -29,7 +28,25 @@ const App = () => {
         );
 
         if (existingPerson !== undefined) {
-            window.alert(`${newName} is already added to phonebook`);
+            if (
+                window.confirm(
+                    `${newName} is already added to phonebook, replace the old number with a new one?`
+                )
+            ) {
+                personService
+                    .update(existingPerson.id, newPerson)
+                    .then((updatedPerson) => {
+                        setPersons(
+                            persons.map((person) =>
+                                person.id !== existingPerson.id
+                                    ? person
+                                    : updatedPerson
+                            )
+                        );
+                        setNewName("");
+                        setNewNumber("");
+                    });
+            }
         } else {
             personService.create(newPerson).then((returnedPerson) => {
                 setPersons(persons.concat(returnedPerson));
@@ -48,7 +65,6 @@ const App = () => {
     };
 
     const deleteEntry = (person) => {
-        
         const deletedId = person.id;
 
         if (window.confirm(`Delete ${person.name} ?`)) {
