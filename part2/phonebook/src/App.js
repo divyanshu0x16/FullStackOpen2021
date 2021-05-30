@@ -10,11 +10,18 @@ const Notification = ({ message }) => {
     return <div className="message">{message}</div>;
 };
 
+const Error = ({ error }) => {
+    if (error === null) return null;
+
+    return <div className="error">{error}</div>;
+};
+
 const App = () => {
     const [persons, setPersons] = useState([]);
     const [newName, setNewName] = useState("");
     const [newNumber, setNewNumber] = useState("");
     const [successMessage, setSuccessMessage] = useState(null);
+    const [error, setErrorMessage] = useState(null);
 
     useEffect(() => {
         personService.getAll().then((initialPersons) => {
@@ -87,9 +94,28 @@ const App = () => {
         const deletedId = person.id;
 
         if (window.confirm(`Delete ${person.name} ?`)) {
-            personService.deletePerson(person.id).then(() => {
-                setPersons(persons.filter((person) => person.id !== deletedId));
-            });
+            personService
+                .deletePerson(person.id)
+                .then(() => {
+                    setPersons(
+                        persons.filter((person) => person.id !== deletedId)
+                    );
+
+                    setSuccessMessage(`Deleted ${person.name}`);
+
+                    setTimeout(() => {
+                        setSuccessMessage(null);
+                    }, 5000);
+                })
+                .catch((_) => {
+                    setErrorMessage(
+                        `${person.name} has already been removed from server`
+                    );
+
+                    setTimeout(() => {
+                        setErrorMessage(null);
+                    }, 5000);
+                });
         }
     };
 
@@ -97,6 +123,7 @@ const App = () => {
         <div>
             <h1>Phonebook</h1>
             <Notification message={successMessage} />
+            <Error error={error} />
             <PersonForm
                 addPerson={addPerson}
                 newName={newName}
