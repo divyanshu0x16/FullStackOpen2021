@@ -7,7 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "lint": "eslint .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose"
   },
   "author": "divyanshu0x16",
   "license": "ISC",
@@ -19,6 +19,10 @@
   },
   "devDependencies": {
     "eslint": "^7.30.0",
+    "jest": "^27.0.6",
     "nodemon": "^2.0.9"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
