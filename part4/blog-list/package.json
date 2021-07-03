@@ -7,7 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "lint": "eslint .",
-    "test": "jest --verbose"
+    "tests": "jest --verbose"
   },
   "author": "divyanshu0x16",
   "license": "ISC",
