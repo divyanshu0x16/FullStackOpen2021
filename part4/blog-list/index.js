@@ -4,6 +4,15 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 
+const url = `mongodb+srv://Divyanshu:${password}@cluster0.eitz6.mongodb.net/blog-list?retryWrites=true&w=majority`
+
+mongoose.connect(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+});
+
 const blogSchema = new mongoose.Schema({
   title: String,
   author: String,
@@ -12,14 +21,6 @@ const blogSchema = new mongoose.Schema({
 });
 
 const Blog = mongoose.model('Blog', blogSchema);
-
-const mongoUrl = 'mongodb://localhost/bloglist';
-mongoose.connect(mongoUrl, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
-});
 
 app.use(cors());
 app.use(express.json()); //for the body property of the object
