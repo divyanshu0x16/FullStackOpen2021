@@ -1,9 +1,9 @@
-require('dotenv').config()
+require('dotenv').config();
 
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const Blog = require('./models/blogs')
+const Blog = require('./models/blogs');
 
 app.use(cors());
 app.use(express.json()); //for the body property of the object
@@ -23,6 +23,7 @@ app.post('/api/blogs', (request, response) => {
 });
 
 const PORT = process.env.PORT;
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
