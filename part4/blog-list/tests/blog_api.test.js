@@ -33,6 +33,12 @@ test('blog list application return correct amount of posts in JSON', async () =>
   expect(response.body).toHaveLength(initialBlogs.length);
 });
 
+test('unique identifier is named id', async () => {
+  const response = await api.get('/api/blogs');
+
+  expect(response.body[0].id).toBeDefined();
+})
+
 afterAll(() => {
   mongoose.connection.close();
 });
