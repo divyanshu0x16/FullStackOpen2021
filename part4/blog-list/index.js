@@ -1,15 +1,10 @@
-const express = require('express');
-const app = express();
-const cors = require('cors');
-const logger = require('./utils/logger');
-const config = require('./utils/config');
-const blogsRouter = require('./controllers/blogs');
+const app = require('./app') // varsinainen Express-sovellus
+const http = require('http')
+const config = require('./utils/config')
+const logger = require('./utils/logger')
 
-app.use(cors());
-app.use(express.json()); //for the body property of the object
+const server = http.createServer(app)
 
-app.use('/api', blogsRouter)
-
-app.listen(config.PORT, () => {
-  logger.info(`Server running on port ${config.PORT}`);
-});
+server.listen(config.PORT, () => {
+  logger.info(`Server running on port ${config.PORT}`)
+})
