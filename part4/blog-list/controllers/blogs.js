@@ -12,4 +12,14 @@ blogsRouter.post('/blogs', async (request, response) => {
   response.status(201).json(result);
 });
 
+blogsRouter.delete('/blogs/:id', async (request, response) => {
+  const id = request.params.id;
+  const deleted = await Blog.findOneAndDelete({ _id: id})
+
+  if(deleted) console.log(`Successfully deleted document that had the form: ${deleted}`)
+  else console.log("No document matches the provided query.")
+  
+  response.status(204).end();
+});
+
 module.exports = blogsRouter;
