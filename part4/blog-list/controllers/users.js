@@ -15,8 +15,14 @@ userRouter.post('/', async (request, response) => {
   });
 
   try {
-    const savedUser = await user.save();
-    response.json(savedUser);
+    if (request.body.username.length < 3 || request.body.password.length < 3) {
+      response
+        .status(400)
+        .json('Username and password must be atleast 3 characters long');
+    } else {
+      const savedUser = await user.save();
+      response.json(savedUser);
+    }
   } catch (error) {
     response.status(400).json(error.message);
   }
