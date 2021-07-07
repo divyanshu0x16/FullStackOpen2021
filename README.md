@@ -1,6 +1,8 @@
 
 # Full Stack Open 2021
 
+Repository of my submission to Full Stack Open 2021 offered by University of Helsinki
+
 ## Course Material
 
 ### Part 0: Fundamentals of Web Apps
@@ -36,3 +38,15 @@
  - Testing the backend
  - User administration
  - Token authentication
+
+### Part 5: Testing Express servers, user administration
+
+ - Login in frontend
+ - props.children and prototypes
+
+### Part 6: State management with Redux
+
+ - Flux-architecture and Redux
+ - Many reducers
+ - Communicating with a server in a Redux application
+ - connect
