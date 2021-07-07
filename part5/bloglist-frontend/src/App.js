@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Blog from './components/Blog';
 import blogService from './services/blogs';
 import loginService from './services/login';
 import CreateForm from './components/CreateForm';
+import Togglable from './components/Togglable';
 
 const Error = ({ error }) => {
   if (error === null) return null;
@@ -19,7 +20,7 @@ const App = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [url, setURL] = useState('');
-  const [blogVisForm, setBlogVisForm] = useState(false);
+  const blogFormRef = useRef();
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -36,7 +37,6 @@ const App = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
     try {
       const user = await loginService.login({
         username,
@@ -57,6 +57,7 @@ const App = () => {
 
   const handleNewBlog = async (event) => {
     event.preventDefault();
+    blogFormRef.current.toggleVisibility();
     const blog = await blogService.create({
       title,
       author,
@@ -102,30 +103,19 @@ const App = () => {
     </div>
   );
 
-  const blogForm = () => {
-    const hideWhenVisible = { display: blogVisForm ? 'none' : '' };
-    const showWhenVisible = { display: blogVisForm ? '' : 'none' };
-
-    return (
-      <div>
-        <div style={hideWhenVisible}>
-          <button onClick={() => setBlogVisForm(true)}>create new blog</button>
-        </div>
-        <div style={showWhenVisible}>
-          <CreateForm
-            handleNewBlog={handleNewBlog}
-            title={title}
-            author={author}
-            url={url}
-            setTitle={setTitle}
-            setAuthor={setAuthor}
-            setURL={setURL}
-          />
-          <button onClick={() => setBlogVisForm(false)}>cancel</button>
-        </div>
-      </div>
-    );
-  };
+  const blogForm = () => (
+    <Togglable buttonLabel="create a new blog" ref={blogFormRef}>
+      <CreateForm
+        handleNewBlog={handleNewBlog}
+        title={title}
+        author={author}
+        url={url}
+        setTitle={setTitle}
+        setAuthor={setAuthor}
+        setURL={setURL}
+      />
+    </Togglable>
+  );
 
   const handleLogout = () => {
     window.localStorage.removeItem('loggedBlogappUser');
