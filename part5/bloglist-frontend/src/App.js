@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Blog from './components/Blog';
 import blogService from './services/blogs';
 import loginService from './services/login';
+import CreateForm from './components/CreateForm';
 
 const Error = ({ error }) => {
   if (error === null) return null;
@@ -18,6 +19,7 @@ const App = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [url, setURL] = useState('');
+  const [blogVisForm, setBlogVisForm] = useState(false);
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -100,41 +102,30 @@ const App = () => {
     </div>
   );
 
-  const blogForm = () => (
-    <div>
-      <h2>create new</h2>
-      <form onSubmit={handleNewBlog}>
-        <div>
-          title:
-          <input
-            type="test"
-            value={title}
-            name="Title"
-            onChange={({ target }) => setTitle(target.value)}
-          />
+  const blogForm = () => {
+    const hideWhenVisible = { display: blogVisForm ? 'none' : '' };
+    const showWhenVisible = { display: blogVisForm ? '' : 'none' };
+
+    return (
+      <div>
+        <div style={hideWhenVisible}>
+          <button onClick={() => setBlogVisForm(true)}>create new blog</button>
         </div>
-        <div>
-          author:
-          <input
-            type="author"
-            value={author}
-            name="Author"
-            onChange={({ target }) => setAuthor(target.value)}
+        <div style={showWhenVisible}>
+          <CreateForm
+            handleNewBlog={handleNewBlog}
+            title={title}
+            author={author}
+            url={url}
+            setTitle={setTitle}
+            setAuthor={setAuthor}
+            setURL={setURL}
           />
+          <button onClick={() => setBlogVisForm(false)}>cancel</button>
         </div>
-        <div>
-          url:
-          <input
-            type="url"
-            value={url}
-            name="URL"
-            onChange={({ target }) => setURL(target.value)}
-          />
-        </div>
-        <button type="submit">submit</button>
-      </form>
-    </div>
-  );
+      </div>
+    );
+  };
 
   const handleLogout = () => {
     window.localStorage.removeItem('loggedBlogappUser');
