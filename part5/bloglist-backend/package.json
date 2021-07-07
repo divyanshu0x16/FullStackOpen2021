@@ -4,26 +4,32 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "test": "jest --runInBand --verbose"
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "lint": "eslint .",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
-  "author": "",
+  "author": "divyanshu0x16",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.7",
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
-    "jest": "^25.1.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.15",
-    "mongoose": "^5.8.10",
-    "nodemon": "^2.0.2"
+    "lodash": "^4.17.21",
+    "mongoose": "^5.13.1",
+    "mongoose-unique-validator": "^2.0.3"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "mongoose-unique-validator": "^2.0.3",
-    "supertest": "^4.0.2"
+    "cross-env": "^7.0.3",
+    "eslint": "^7.30.0",
+    "jest": "^27.0.6",
+    "nodemon": "^2.0.9",
+    "supertest": "^6.1.3"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
