@@ -2,7 +2,6 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { createAnecdote, sortAnecdotes } from '../reducers/anecdoteReducer';
 import { notificationCreator } from '../reducers/notificationReducer';
-import anecdoteService from '../services/anecdotes';
 
 const AnecdoteForm = () => {
   const dispatch = useDispatch();
@@ -15,8 +14,7 @@ const AnecdoteForm = () => {
     setTimeout(() => {
       dispatch(notificationCreator(''));
     }, 5000);
-    const newAnecdote = await anecdoteService.createNew(content);
-    dispatch(createAnecdote(newAnecdote));
+    dispatch(createAnecdote(content));
     dispatch(sortAnecdotes());
   };
 

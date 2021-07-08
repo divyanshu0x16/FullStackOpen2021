@@ -1,5 +1,4 @@
-const getId = () => (100000 * Math.random()).toFixed(0);
-
+import anecdoteService from '../services/anecdotes';
 //This is  a action creator
 export const increaseVotes = (id) => {
   return {
@@ -8,10 +7,11 @@ export const increaseVotes = (id) => {
   };
 };
 
-export const createAnecdote = (data) => {
-  return {
-    type: 'CREATE_ANECDOTE',
-    data,
+export const createAnecdote = (content) => {
+  return async (dispatch) => {
+    const newAnecdote = await anecdoteService.createNew(content);
+    console.log(newAnecdote);
+    dispatch({ type: 'CREATE_ANECDOTE', data: newAnecdote });
   };
 };
 
@@ -22,9 +22,12 @@ export const sortAnecdotes = () => {
 };
 
 export const initialzieAnecdotes = (anecdotes) => {
-  return {
-    type: 'INIT_ANECDOTES',
-    data: anecdotes,
+  return async (dispatch) => {
+    const anecdotes = await anecdoteService.getAll();
+    dispatch({
+      type: 'INIT_ANECDOTES',
+      data: anecdotes,
+    });
   };
 };
 
