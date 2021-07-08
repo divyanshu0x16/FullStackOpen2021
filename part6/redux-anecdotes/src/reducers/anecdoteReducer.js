@@ -38,6 +38,12 @@ export const createAnecdote = (content) => {
   };
 };
 
+export const sortAnecdotes = () => {
+  return {
+    type: 'SORT',
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'INCREASE_VOTES': {
@@ -51,6 +57,15 @@ const reducer = (state = initialState, action) => {
     }
     case 'CREATE_ANECDOTE': {
       return [...state, action.data];
+    }
+    case 'SORT': {
+      return state.slice().sort((a, b) => {
+        let keyA = a.votes;
+        let keyB = b.votes;
+        if (keyA < keyB) return 1;
+        if (keyA > keyB) return -1;
+        return 0;
+      })
     }
     default:
       return state;

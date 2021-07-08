@@ -1,6 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { increaseVotes, createAnecdote } from './reducers/anecdoteReducer';
+import {
+  increaseVotes,
+  createAnecdote,
+  sortAnecdotes,
+} from './reducers/anecdoteReducer';
 
 const App = () => {
   const anecdotes = useSelector((state) => state);
@@ -8,6 +12,7 @@ const App = () => {
 
   const vote = (id) => {
     dispatch(increaseVotes(id));
+    dispatch(sortAnecdotes());
   };
 
   const addAnecdote = (event) => {
@@ -15,6 +20,7 @@ const App = () => {
     const content = event.target.anecdote.value;
     event.target.anecdote.value = '';
     dispatch(createAnecdote(content));
+    dispatch(sortAnecdotes());
   };
 
   return (
