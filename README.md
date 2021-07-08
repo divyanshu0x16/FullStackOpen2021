@@ -3,6 +3,9 @@
 
 Repository of my submission to Full Stack Open 2021 offered by University of Helsinki
 
+## Certificate of completion
+![completion](https://github.com/divyanshu0x16/FullStackOpen2021/blob/main/certificate-fullstack.png)
+
 ## Course Material
 
 ### Part 0: Fundamentals of Web Apps
