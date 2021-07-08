@@ -1,7 +1,6 @@
 const filterReducer = (state = null, action) => {
   switch (action.type) {
     case 'APPLY_FILTER': {
-      console.log(action.filter)
       return action.filter;
     }
     default:
