@@ -1,9 +1,9 @@
 import anecdoteService from '../services/anecdotes';
 //This is  a action creator
-export const increaseVotes = (id) => {
-  return {
-    type: 'INCREASE_VOTES',
-    data: { id },
+export const increaseVotes = (anecdote) => {
+  return async (dispatch) => {
+    const data = await anecdoteService.updateVotes(anecdote);
+    dispatch({ type: 'INCREASE_VOTES', data });
   };
 };
 
