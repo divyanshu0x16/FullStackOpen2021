@@ -8,7 +8,10 @@ const AnecdoteList = () => {
   const dispatch = useDispatch();
 
   const vote = (id, content) => {
-    dispatch(notificationCreator(`you voted '${content}'`))
+    dispatch(notificationCreator(`you voted '${content}'`));
+    setTimeout(() => {
+      dispatch(notificationCreator(''));
+    }, 5000);
     dispatch(increaseVotes(id));
     dispatch(sortAnecdotes());
   };

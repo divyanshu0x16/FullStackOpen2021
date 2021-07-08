@@ -11,6 +11,9 @@ const AnecdoteForm = () => {
     const content = event.target.anecdote.value;
     event.target.anecdote.value = '';
     dispatch(notificationCreator(`you created '${content}'`));
+    setTimeout(() => {
+      dispatch(notificationCreator(''));
+    }, 5000);
     dispatch(createAnecdote(content));
     dispatch(sortAnecdotes());
   };
