@@ -42,7 +42,7 @@ Repository of my submission to Full Stack Open 2021 offered by University of Hel
  - User administration
  - Token authentication
 
-### Part 5: Testing Express servers, user administration
+### Part 5: Testing React apps
 
  - Login in frontend
  - props.children and prototypes
