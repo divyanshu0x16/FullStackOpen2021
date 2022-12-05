@@ -9,9 +9,9 @@ interface ExerciseResult {
 }
 
 const strToNumArray = (args: Array<string>): Array<number> => {
-  let convertedArray: Array<number> = [];
+  const convertedArray: Array<number> = [];
 
-  for (let arg of args.slice(2, args.length - 1)) {
+  for (const arg of args.slice(2, args.length - 1)) {
     convertedArray.push(Number(arg));
   }
 
@@ -21,11 +21,12 @@ const strToNumArray = (args: Array<string>): Array<number> => {
 const calulateExercise = (exerciseHours: Array<number>): ExerciseResult => {
   if (exerciseHours.length === 0) throw new Error('Input should be of size > 0');
 
-  let trainingDays: number = 0;
-  let target: number = 2;
-  let average: number = 0;
+  const target = 2;
 
-  for (let exerciseHour of exerciseHours) {
+  let trainingDays = 0;
+  let average = 0;
+
+  for (const exerciseHour of exerciseHours) {
     if (exerciseHour !== 0) trainingDays += 1;
 
     average += exerciseHour;

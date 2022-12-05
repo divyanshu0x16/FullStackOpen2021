@@ -21,7 +21,7 @@ const bmiCalculator = (weight: number, height: number): string => {
   if (weight <= 0 || height <= 0)
     throw new Error('Weight or Height cannot be negative');
 
-  let bmi: number = (weight * 100 * 100) / (height * height);
+  const bmi: number = (weight * 100 * 100) / (height * height);
 
   if (bmi < 16) return 'Underweight (Severe thinness)';
   else if (16 <= bmi && bmi <= 16.9) return 'Underweight (Moderate thinness)';

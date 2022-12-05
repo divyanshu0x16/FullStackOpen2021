@@ -8,13 +8,13 @@ app.get('/hello', (_req, res) => {
 
 app.get('/bmi', (_req, res) => {
   try {
-    let height: number = Number(_req.query.height);
-    let weight: number = Number(_req.query.weight);
+    const height = Number(_req.query.height);
+    const weight = Number(_req.query.weight);
 
     if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0)
       throw new Error('malformatted parameters');
 
-    let bmi: string = bmiCalculator(weight, height);
+    const bmi: string = bmiCalculator(weight, height);
 
     res.send({
       weight: weight,
@@ -23,6 +23,7 @@ app.get('/bmi', (_req, res) => {
     });
   } catch (error) {
     res.send({
+      //eslint-disable-next-line
       error: error.message,
     });
   }
