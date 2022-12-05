@@ -1,6 +1,10 @@
 import express = require('express');
+import bodyParser = require('body-parser');
 import { bmiCalculator } from './bmiCalculator';
+import { calulateExercise } from './exerciseCalculator';
+
 const app = express();
+const jsonParser = bodyParser.json();
 
 app.get('/hello', (_req, res) => {
   res.send('Hello Full Stack!');
@@ -27,6 +31,14 @@ app.get('/bmi', (_req, res) => {
       error: error.message,
     });
   }
+});
+
+app.post('/exercise', jsonParser, (req, res) => {
+  console.log(req.body);
+  // eslint-disable-next-line
+  const { exercises, target } = req.body;
+  const result = calulateExercise(exercises as Array<number>, Number(target));
+  res.send(result);
 });
 
 const PORT = 3003;
