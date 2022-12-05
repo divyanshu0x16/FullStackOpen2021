@@ -9,9 +9,9 @@ interface ExerciseResult {
 }
 
 const strToNumArray = (args: Array<string>): Array<number> => {
-  let convertedArray: Array<number>;
+  let convertedArray: Array<number> = [];
 
-  for (let arg of args) {
+  for (let arg of args.slice(2, args.length - 1)) {
     convertedArray.push(Number(arg));
   }
 
@@ -19,7 +19,7 @@ const strToNumArray = (args: Array<string>): Array<number> => {
 };
 
 const calulateExercise = (exerciseHours: Array<number>): ExerciseResult => {
-  if (exerciseHours.length !== 7) throw new Error('Input should be of size 7');
+  if (exerciseHours.length === 0) throw new Error('Input should be of size > 0');
 
   let trainingDays: number = 0;
   let target: number = 2;
@@ -30,7 +30,7 @@ const calulateExercise = (exerciseHours: Array<number>): ExerciseResult => {
 
     average += exerciseHour;
   }
-  average = average / 7;
+  average = average / exerciseHours.length;
 
   let success: boolean;
   let rating: number;
@@ -47,7 +47,7 @@ const calulateExercise = (exerciseHours: Array<number>): ExerciseResult => {
   }
 
   return {
-    periodLength: 7,
+    periodLength: exerciseHours.length,
     trainingDays: trainingDays,
     success: success,
     rating: rating,
@@ -58,7 +58,7 @@ const calulateExercise = (exerciseHours: Array<number>): ExerciseResult => {
 };
 
 try {
-  console.log(calulateExercise([3, 0, 2, 4.5, 0, 3, 1]));
+  console.log(calulateExercise(strToNumArray(process.argv)));
 } catch (error: unknown) {
   let errorMessage = 'Something bad happened.';
   if (error instanceof Error) {

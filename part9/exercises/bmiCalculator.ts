@@ -9,8 +9,8 @@ const parseArguments = (args: Array<string>): BMIValues => {
 
   if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
     return {
-      weight: Number(args[2]),
-      height: Number(args[3]),
+      weight: Number(args[3]),
+      height: Number(args[2]),
     };
   } else {
     throw new Error('Provided values were not numbers!');
