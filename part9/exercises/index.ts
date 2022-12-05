@@ -34,11 +34,12 @@ app.get('/bmi', (_req, res) => {
 });
 
 app.post('/exercise', jsonParser, (req, res) => {
-  console.log(req.body);
   // eslint-disable-next-line
   const { exercises, target } = req.body;
   const result = calulateExercise(exercises as Array<number>, Number(target));
   res.send(result);
+
+  //Remaining error handling for different parameters
 });
 
 const PORT = 3003;
