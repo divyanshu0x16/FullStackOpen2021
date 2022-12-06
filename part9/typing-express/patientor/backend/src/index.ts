@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import diagnoseRouter  from './routes/diagnoses';
+import diagnoseRouter from './routes/diagnoses';
+import patientRouter from './routes/patients';
 
 const app = express();
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
@@ -15,6 +16,8 @@ app.get('/api/ping', (_req, res) => {
 });
 
 app.use('/api/diagnoses', diagnoseRouter);
+
+app.use('/api/patients', patientRouter);
 
 // app.get('/api/patients', (_req, res) => {
 //   console.log('patients get request');
