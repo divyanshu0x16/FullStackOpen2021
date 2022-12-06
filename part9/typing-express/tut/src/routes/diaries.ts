@@ -17,8 +17,16 @@ router.get('/:id', (req, res) => {
   }
 });
 
-router.post('/', (_req, res) => {
-  res.send('Saving a diary!');
+router.post('/', (req, res) => {
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+  const { date, weather, visibility, comment } = req.body;
+  const newDiaryEntry = diaryService.addDiary({
+    date,
+    weather,
+    visibility,
+    comment,
+  });
+  res.json(newDiaryEntry);
 });
 
 export default router;
